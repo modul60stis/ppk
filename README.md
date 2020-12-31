@@ -3,11 +3,11 @@
 ## Overview
 
 Project ini ditujukan untuk belajar PPK biar UAS nya mantep. Nah disini project yang dibuat adalah project yang ngebahas beberapa hal yaitu
-[X] Ngebuat Recycler View
-[X] Ngambil data dari REST API pake RETROFIT 2
-[X] Gabungin data dari REST API ke Recycler View
-[ ] Simpen ke database local
-[ ] Dan belum kepikiran mau dibuat apa lagi ...
+- [X] Ngebuat Recycler View
+- [X] Ngambil data dari REST API pake RETROFIT 2
+- [X] Gabungin data dari REST API ke Recycler View
+- [ ] Simpen ke database local
+- [ ] Dan belum kepikiran mau dibuat apa lagi ...
 
 Nah disini saya pake API dari Poke Api, REST API yang bisa diakses gratis isinya tentang Pokemon-Pokemon
 
