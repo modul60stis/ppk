@@ -1,42 +1,47 @@
 package com.ppk.pokeapi;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
+import java.util.List;
 
-import java.util.ArrayList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private PokemonAdapter adapter;
-    private ArrayList<Pokemon> pokemonsArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addData();
+        PokemonServices pokemonInterface = PokemonInstance.getInstance().create(PokemonServices.class);
+        Call<PokemonList> call = pokemonInterface.getPokemonList();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        adapter = new PokemonAdapter(pokemonsArrayList);
+        call.enqueue(new Callback<PokemonList>() {
+            @Override
+            public void onResponse(Call<PokemonList> call, Response<PokemonList> response) {
+                generateDataList(response.body().getPokemonList());
+            }
 
+            @Override
+            public void onFailure(Call<PokemonList> call, Throwable t) {
+                Log.e("[RES]", "Failed load data");
+            }
+        });
+    }
+
+    private void generateDataList(List<Pokemon> pokemonList){
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        PokemonAdapter adapter = new PokemonAdapter(pokemonList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
-    }
-
-    void addData(){
-        pokemonsArrayList = new ArrayList<>();
-        pokemonsArrayList.add(new Pokemon("charmeleon"));
-        pokemonsArrayList.add(new Pokemon("charizard"));
-        pokemonsArrayList.add(new Pokemon("squirtle"));
-        pokemonsArrayList.add(new Pokemon("wartortle"));
-
     }
 }

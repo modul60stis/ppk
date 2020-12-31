@@ -9,13 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {
 
-    private ArrayList<Pokemon> dataList;
+    private List<Pokemon> dataList;
 
-    public PokemonAdapter(ArrayList<Pokemon> dataList) {
+    public PokemonAdapter(List<Pokemon> dataList) {
         this.dataList = dataList;
     }
 
@@ -44,7 +44,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("[APP]", getAdapterPosition()+" Clicked");
+                    Log.d("[APP]", dataList.get(getAdapterPosition()).getName()+" Clicked");
                 }
             });
             name = itemView.findViewById(R.id.txt_poke_name);
